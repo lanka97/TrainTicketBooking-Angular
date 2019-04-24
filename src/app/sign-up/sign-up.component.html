@@ -1,0 +1,34 @@
+<div id="sideBar">
+    <div id="panel">
+      <h1 style="font-weight:normal">Sign Up</h1>
+      <form>
+          <div class="input-group mb-3">
+            <input type="text" name="fName" class="form-control input_user" value="" placeholder="First Name">
+          </div>
+          <div class="input-group mb-3">
+              <input type="text" name="Lname" class="form-control input_user" value="" placeholder="Last Name">
+          </div>
+          <div class="input-group mb-3">
+              <input type="number" name="phone" class="form-control input_user" value="" placeholder="Phone Number">
+          </div>
+          <div class="input-group mb-3">
+              <input type="email" name="email" class="form-control input_user" value="" placeholder="E-mail">
+          </div>
+          <div class="input-group mb-1">
+                <mat-checkbox name="govEmp" style="margin:2px" [(ngModel)]="govEmp">Goverment Empolyee</mat-checkbox>
+          </div>
+          <div class="input-group mb-3" *ngIf = "govEmp">
+              <input type="text" name="nic" class="form-control input_user" value="" placeholder="NIC num" >
+          </div>
+          <div class="input-group mb-3">
+              <input type="password" name="password" class="form-control input_user" value="" placeholder="password">
+          </div>
+
+          <div class="input-group mb-3">
+              <input type="password" name="confirmPassword" class="form-control input_user" value="" placeholder="confirm password ">
+          </div>
+
+        <button type="button" (click)="showLogin = false" label="Cancel" class="btn btn-success btn-block" >Sign up</button>
+        </form>
+      </div>
+</div>

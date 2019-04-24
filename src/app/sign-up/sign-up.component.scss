@@ -1,0 +1,41 @@
+#panel {
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    height: 70%;
+    width: 80%;
+    margin: -15% 0 0 -25%;
+    padding: 8px;
+    background-color: transparent;
+    background-color: rgba(245, 245, 220, 0.808);
+    text-align: center
+}
+
+#sideBar {
+    height: 100%;
+    align: center;
+    width: 100%;
+    background-image: url('../../assets/img/loginBack.jpg');
+    background-size: cover;
+}
+
+.input-group-text {
+    background: #5670e6!important;
+    color: white !important;
+    border: 0 !important;
+    border-radius: 0.25rem 0 0 0.25rem !important;
+}
+.input_user,
+
+.input_pass:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #5670e6 !important;
+}
+
+button{
+    margin-top: 60px;
+    margin: 5px;
+}

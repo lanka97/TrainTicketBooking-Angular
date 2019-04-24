@@ -1,0 +1,109 @@
+<mat-vertical-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Fill out your Details</ng-template>
+      <div>
+
+        <div id="panel">
+          <label>If you Registerd With us this part will be easy</label>
+          <div class="input-group mb-3">
+            <input type="text" formControlName ="fName" class="form-control input_user" [value]="fName || null" placeholder="First Name">
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" name="Lname" class="form-control input_user" value="" placeholder="Last Name">
+          </div>
+          <div class="input-group mb-3">
+            <input type="number" name="phone" class="form-control input_user" value="" placeholder="Phone Number">
+          </div>
+          <div class="input-group mb-3">
+            <input type="email" name="email" class="form-control input_user" value="" placeholder="E-mail">
+          </div>
+          <div class="input-group mb-1">
+            <mat-checkbox name="govEmp" style="margin:2px" [(ngModel)]="govEmp" [ngModelOptions]="{standalone: true}">Goverment Empolyee</mat-checkbox>
+          </div>
+          <div class="input-group mb-3" *ngIf="govEmp">
+            <input type="text" name="nic" class="form-control input_user" value="" placeholder="NIC num">
+          </div>
+        </div>
+
+      </div>
+      <div>
+        <button mat-button matStepperNext class="btn btn-success">Next</button>
+      </div>
+    </form>
+  </mat-step>
+
+
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Ticket Count</ng-template>
+
+      <label>10 tickets are Available Rs. 100.00 per One</label>
+
+      <div>
+        <mat-form-field>
+          <input type="number" matInput placeholder="Ticket Count" [(ngModel)] = "count" formControlName="count" required>
+        </mat-form-field>
+      </div>
+      <label>Total = {{count * 100.00 || 0}}</label>
+      <div>
+        <button mat-button matStepperPrevious class="btn btn-success">Back</button>
+        <button mat-button matStepperNext class="btn btn-success">Next</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Checkout</ng-template>
+    <!-- <mat-radio-group aria-label="Select an option">
+        <mat-radio-button value="1" name = "mobile" [(ngModel)]="mobile" [ngModelOptions]="{standalone: true}">Option 1</mat-radio-button>
+        <mat-radio-button value="2" name = "card" [(ngModel)]="card" [ngModelOptions]="{standalone: true}">Option 2</mat-radio-button>
+      </mat-radio-group> -->
+      
+      <div style="margin-top: 10px;color: darkred">
+          <div class="input-group mb-3">
+              Total = Rs: {{count * 100.00 || 0}}
+          </div>
+      </div>
+      <div>
+      <label>Payment Method:</label>
+      </div>
+      <p-dropdown [options]="payOptions" [(ngModel)]="paymemtOption" ></p-dropdown>
+
+      <div *ngIf = "paymemtOption == 'mobile' " style="margin-top: 10px">
+        
+          <div class="input-group mb-3">
+              <input type="number" name="phone" class="form-control input_user" value="" placeholder="Phone Number" [(ngModel)] = "phone">
+          </div>
+
+          <div class="input-group mb-3" style="width:80px">
+              <input type="number" name="phone" class="form-control input_user" value="" placeholder="pin" [(ngModel)] = "pin">
+          </div>
+
+          <div>
+              <button class="btn btn-success" >Checkout</button>
+          </div>
+
+      </div>
+
+      <div *ngIf = "paymemtOption == 'card' " style="margin-top: 10px">
+          <div class="input-group mb-3">
+              <input type="text" name="phone" class="form-control input_user" value="" placeholder="Card Holder's Name" [(ngModel)] = "CardHolder">
+          </div>
+          <div class="input-group mb-3" >
+              <input type="number" name="cardNum" class="form-control input_user" value="" placeholder="Card Number" [(ngModel)] = "cardNum">
+          </div>
+          <div class="input-group mb-3" style="width:80px">
+              <input type="number" name="cvc" class="form-control input_user" value="" placeholder="cvc" [(ngModel)] = "cvc">
+          </div>
+
+          <div>
+              <button class="btn btn-success" >Checkout</button>
+          </div>
+      </div>
+
+      <div style="margin-bottom: 70px;">
+      </div>
+      
+      <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+  </mat-step>
+</mat-vertical-stepper>

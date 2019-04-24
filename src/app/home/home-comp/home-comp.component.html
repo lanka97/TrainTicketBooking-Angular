@@ -1,0 +1,21 @@
+<!-- <p-galleria [imagers]="images" panelWidth="500" panelHeight="313" ></p-galleria> -->
+
+<div style="padding:20px; background-color: #212529; width: 100%" >
+    <hr>
+    <div class="card-group" style="align-items: center">
+    <p-card header="Podi Menike" subheader="Runs On" [style]="{width: '350px'}" 
+            styleClass="ui-card-shadow shadow p-3 mb-5 bg-white rounded center" style="margin-right: 18px" *ngFor="let item of imagers">
+        <p-header>
+            <img src="train" src="../../../assets/img/1 (4).jpg">
+        </p-header>
+        <div>Colombo to Badulla (Runs via Kandy)</div>
+        <p-footer>
+            <button type="button" (click)="showLogin = false" label="Cancel" class="btn btn-success btn-block" (click) = "display = true">Book Now</button>
+        </p-footer>
+    </p-card>
+    </div>
+</div>
+
+<p-dialog header="Checkout" [(visible)]="display">
+    <app-checkout></app-checkout>
+</p-dialog>
