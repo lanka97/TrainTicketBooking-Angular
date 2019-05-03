@@ -15,8 +15,9 @@
   </ul>
   <!-- <form class="form-inline my-2 my-lg-0"> -->
     <!-- <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"> -->
-    <button *ngIf="!showLogin" class="btn btn-info my-2 my-sm-0" type="submit"(click)="showLogin= true">LOG IN</button>
-    <button *ngIf="!showLogin" class="btn btn-outline-success my-2 my-sm-0" type="submit"(click)="showSignUp= true">Sign up</button>
+    <button *ngIf="!checkLogin()" class="btn btn-info my-2 my-sm-0" type="submit"(click)="showLogin= true">LOG IN</button>
+    <button *ngIf="!checkLogin()" class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="showSignUp= true">Sign up</button>
+    <button *ngIf="checkLogin()" class="btn btn-info my-2 my-sm-0" type="submit" (click)="logOut()">LOG OUT</button>
   <!-- </form> -->
 </div>
 </nav>
@@ -33,11 +34,11 @@
 
 
 <p-sidebar [(visible)]="showLogin" [baseZIndex]="10000">
-    <app-login></app-login>
+    <app-login (isSubmit) = "closeLogin($event)" (isSignUp) = "closeLoginOpenSignUp($event)"></app-login>
 </p-sidebar>
 
 <p-sidebar [(visible)]="showSignUp" [baseZIndex]="10000">
-    <app-sign-up></app-sign-up>
+    <app-sign-up (isSubmit) = "closeSignUp($event)" ></app-sign-up>
 </p-sidebar>
 
 <router-outlet></router-outlet>

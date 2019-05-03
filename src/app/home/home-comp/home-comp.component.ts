@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 //import { ImageSupport } from '../../support/imagers';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TrainService } from '../../api/trainServicers';
+import { Train } from '../../../models/train';
 
 
 @Component({
@@ -10,22 +12,20 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class HomeCompComponent implements OnInit {
 
-  imagers : any[];
+  trains: Train[];
   isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
-  display:boolean;
+  display: boolean;
+  selectedTrain: Train;
 
-  constructor( private _formBuilder: FormBuilder ) { 
-    this.imagers = [];
-    this.imagers.push(1);
-    this.imagers.push(1);
-    this.imagers.push(1);
-    this.imagers.push(1);
-    this.imagers.push(1);
-    this.imagers.push(1);
-    this.imagers.push(1);
-    this.imagers.push(1);
+  constructor( private _formBuilder: FormBuilder, private trainService: TrainService ) { 
+
+    this.trainService.getTrains().subscribe( res => {
+      this.trains = res;
+      console.log(this.trains);
+    });
+
   }
 
   ngOnInit() {
@@ -35,6 +35,13 @@ export class HomeCompComponent implements OnInit {
     this.secondFormGroup = this._formBuilder.group({
       secondCtrl: ['', Validators.required]
     });
+  }
+
+  async showDialogtoCheckout(item: any) {
+    this.selectedTrain = item;
+    if(this.selectedTrain){
+    this.display = true;
+  }
   }
   }
 

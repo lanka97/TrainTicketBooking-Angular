@@ -19,6 +19,7 @@ import { MatStepperModule } from '@angular/material';
 import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { NgxCoolDialogsModule } from 'ngx-cool-dialogs';
 
 import {
   MatButtonModule,
@@ -29,6 +30,10 @@ import {
 } from '@angular/material';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { CookieService, CookieModule } from 'ngx-cookie';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './api/user.service';
+
 
 @NgModule({
   declarations: [
@@ -40,10 +45,12 @@ import { DropdownModule } from 'primeng/dropdown';
   ],
   imports: [
     BrowserModule,
+    NgxCoolDialogsModule.forRoot(),
     DropdownModule,
     RadioButtonModule,
     DialogModule,
     MatDialogModule,
+    HttpClientModule,
     MatCheckboxModule,
     MatStepperModule,
     CardModule,
@@ -58,9 +65,13 @@ import { DropdownModule } from 'primeng/dropdown';
     GalleriaModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    CookieModule.forRoot(),
+    CookieModule
   ],
   providers: [
+    CookieService,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

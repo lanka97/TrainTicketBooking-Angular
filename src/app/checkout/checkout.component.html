@@ -1,16 +1,16 @@
 <mat-vertical-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
+  <mat-step [stepControl]="userFormGroup">
+    <form (ngSubmit)="onFormSubmit()">
       <ng-template matStepLabel>Fill out your Details</ng-template>
       <div>
 
         <div id="panel">
-          <label>If you Registerd With us this part will be easy</label>
+          <label>If you Registerd With us this part will be easy </label>
           <div class="input-group mb-3">
-            <input type="text" formControlName ="fName" class="form-control input_user" [value]="fName || null" placeholder="First Name">
+            <input type="text" name="fName" class="form-control input_user"  placeholder="first Name " [(ngModel)] = "fName">
           </div>
           <div class="input-group mb-3">
-            <input type="text" name="Lname" class="form-control input_user" value="" placeholder="Last Name">
+            <input type="text" name="lName" class="form-control input_user" value="" placeholder="Last Name">
           </div>
           <div class="input-group mb-3">
             <input type="number" name="phone" class="form-control input_user" value="" placeholder="Phone Number">
@@ -22,30 +22,44 @@
             <mat-checkbox name="govEmp" style="margin:2px" [(ngModel)]="govEmp" [ngModelOptions]="{standalone: true}">Goverment Empolyee</mat-checkbox>
           </div>
           <div class="input-group mb-3" *ngIf="govEmp">
-            <input type="text" name="nic" class="form-control input_user" value="" placeholder="NIC num">
+            <input type="text" name="nic" class="form-control input_user" value="" placeholder="NIC num" [required] = 'govEmp' >
           </div>
         </div>
 
       </div>
       <div>
-        <button mat-button matStepperNext class="btn btn-success">Next</button>
+        <button mat-button matStepperNext class="btn btn-success" type="submit">Next</button>
       </div>
     </form>
   </mat-step>
 
+  <mat-step [stepControl]="ticketFormGroup">
+    <form [formGroup]="ticketFormGroup">
+      <ng-template matStepLabel>Ticket Details</ng-template>
+      <div>
+          <label><h6>Train Name : <span style="color: darkred">{{selectedTrain.trainName}}</span> </h6></label>
+      </div>
 
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Ticket Count</ng-template>
+      <label style="font-size: 10px;">{{selectedTrain.departure}} to {{selectedTrain.destination}}</label>
 
-      <label>10 tickets are Available Rs. 100.00 per One</label>
-
+      <div style="margin : 5px;">
+          <div>
+              <label>Select Ticket Class:</label><br/>
+              <p-dropdown [options]="classes" [(ngModel)]="ClassPrice" [ngModelOptions]="{standalone: true}" ></p-dropdown>
+            </div>
+      
+            <div>
+                <label>Select Train Time:</label><br/>
+                <p-dropdown [options]="times" [(ngModel)]="time" [ngModelOptions]="{standalone: true}" ></p-dropdown>
+            </div>
+      </div>
+      
       <div>
         <mat-form-field>
-          <input type="number" matInput placeholder="Ticket Count" [(ngModel)] = "count" formControlName="count" required>
+          <input type="number" matInput placeholder="Ticket Count" [(ngModel)] = "count" [ngModelOptions]="{standalone: true}"  required>
         </mat-form-field>
       </div>
-      <label>Total = {{count * 100.00 || 0}}</label>
+      <label>Total = {{count * ClassPrice || 0}}</label>
       <div>
         <button mat-button matStepperPrevious class="btn btn-success">Back</button>
         <button mat-button matStepperNext class="btn btn-success">Next</button>
@@ -59,7 +73,7 @@
         <mat-radio-button value="2" name = "card" [(ngModel)]="card" [ngModelOptions]="{standalone: true}">Option 2</mat-radio-button>
       </mat-radio-group> -->
       
-      <div style="margin-top: 10px;color: darkred">
+      <div style="margin-top: 10px; color: darkred">
           <div class="input-group mb-3">
               Total = Rs: {{count * 100.00 || 0}}
           </div>
