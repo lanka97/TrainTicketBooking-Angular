@@ -18,17 +18,18 @@
                 <mat-checkbox name="govEmp" style="margin:2px" [(ngModel)]="user.govEmp" > Goverment Empolyee</mat-checkbox>
           </div>
           <div class="input-group mb-3" *ngIf = "user.govEmp">
-              <input type="text" name="nic" class="form-control input_user" [(ngModel)]="user.nic" placeholder="NIC num" (required) = 'govEmp' >
+              <input type="text" name="nic" class="form-control input_user" [(ngModel)]="user.nic" placeholder="NIC num" [required] = 'user.govEmp' >
           </div>
           <div class="input-group mb-3">
               <input type="password" name="password" class="form-control input_user" [(ngModel)]="user.password"  placeholder="password" required>
           </div>
 
           <div class="input-group mb-3">
-              <input type="password" name="confirmPassword" class="form-control input_user" ngModel placeholder="confirm password " required>
-          </div>
+              <input type="password" name="confirmPassword" [(ngModel)]="comPassword" class="form-control input_user" ngModel placeholder="confirm password " value="" required>
+            </div>
+            <div *ngIf = "user.password != comPassword " style="color:crimson">passwords does'nt match </div>
 
-        <button type="submit" label="Cancel" class="btn btn-success btn-block" [disabled]="!f.valid" >Sign up</button>
+        <button type="submit" label="Cancel" class="btn btn-success btn-block" [disabled]="!f.valid && user.password != conpassword" >Sign up</button>
         <div *ngIf = "singUpError" style="color:crimson">email Address Already Exist </div>
         </form> 
       </div>

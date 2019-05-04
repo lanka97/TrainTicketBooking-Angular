@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Injectable } from '@angular/co
 import { CookieService } from 'ngx-cookie';
 import { UserService } from '../api/user.service';
 import { User } from 'src/models/user';
+import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +19,9 @@ export class LoginComponent implements OnInit {
 
   email = '';
   password = '';
+  errorMsg = '';
 
-  constructor( private cookieService: CookieService, private userService: UserService ) { }
+  constructor( private cookieService: CookieService, private userService: UserService, private dialogsercice: NgxCoolDialogsService ) { }
 
   ngOnInit() {
   }
@@ -34,11 +36,18 @@ export class LoginComponent implements OnInit {
       password: this.password
     };
 
-    this.userService.login(loginObj).subscribe( respose => {
-      console.log(respose);
+    this.userService.login(loginObj).subscribe( response => {
+      console.log(response);
+      if ( response.success ) {
+        this.cookieService.putObject('user', response.user );
+        this.isSubmit.emit(true);
+        this.dialogsercice.alert( 'loged in ' + response.user.email );
+      } else {
+        this.errorMsg = response.error;
+        console.log(this.errorMsg);
+      }
     });
-    this.isSubmit.emit(true);
-    this.cookieService.putObject("name","Cookie Wada");
+
   }
 
   clickClose() {

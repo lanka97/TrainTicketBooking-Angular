@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   showLogin: boolean;
   showSignUp: any;
   images: any[];
-  user = this.cookieService.getObject("name");
+  user = this.cookieService.getObject("user");
 
   constructor( private cookieService: CookieService, private userService: UserService, private trainService: TrainService ) {
     this.checkLogin();
@@ -57,20 +57,19 @@ export class AppComponent implements OnInit {
     this.showSignUp = true;
   }
 
-  checkLogin(): boolean{
-    this.user = this.cookieService.getObject("name");
+  checkLogin(): boolean {
+    this.user = this.cookieService.getObject('user');
 
-    if(this.user){
-      console.log(this.user);
+    if(this.user) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
+
   }
 
   logOut(){
-    this.cookieService.remove("name");
+    this.cookieService.remove("user");
   }
 
 }

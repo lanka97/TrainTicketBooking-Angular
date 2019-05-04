@@ -1,9 +1,11 @@
 export interface Ticket {
     trainName?: string;
     class?: string;
-    price?: string;
-    mainPassenger?: string[];
-    count?: string;
+    price?: any;
+    passengerName?: string;
+    passengerEmail?: string;
+    passengerPhone?: string;
+    count?: any;
     time?: string;
     date?: string;
 }

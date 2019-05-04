@@ -33,7 +33,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CookieService, CookieModule } from 'ngx-cookie';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './api/user.service';
-
+import { NgXCreditCardsModule } from 'ngx-credit-cards';
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { UserService } from './api/user.service';
   ],
   imports: [
     BrowserModule,
+    // NgXCreditCardsModule,
     NgxCoolDialogsModule.forRoot(),
     DropdownModule,
     RadioButtonModule,

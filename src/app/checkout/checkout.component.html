@@ -1,40 +1,40 @@
 <mat-vertical-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="userFormGroup">
-    <form (ngSubmit)="onFormSubmit()">
+    <form (ngSubmit)="submitUser()" #userForm = "ngForm">
       <ng-template matStepLabel>Fill out your Details</ng-template>
       <div>
 
         <div id="panel">
           <label>If you Registerd With us this part will be easy </label>
           <div class="input-group mb-3">
-            <input type="text" name="fName" class="form-control input_user"  placeholder="first Name " [(ngModel)] = "fName">
+            <input type="text" name="fName" class="form-control input_user" value=""  placeholder="first Name " [(ngModel)] = "user.fName" required>
           </div>
           <div class="input-group mb-3">
-            <input type="text" name="lName" class="form-control input_user" value="" placeholder="Last Name">
+            <input type="text" name="lName" class="form-control input_user" value="" placeholder="Last Name" [(ngModel)] = "user.lName" required>
           </div>
           <div class="input-group mb-3">
-            <input type="number" name="phone" class="form-control input_user" value="" placeholder="Phone Number">
+            <input type="text" name="phone" class="form-control input_user" value="" placeholder="Phone Number" [(ngModel)] = "user.phone" required>
           </div>
           <div class="input-group mb-3">
-            <input type="email" name="email" class="form-control input_user" value="" placeholder="E-mail">
+            <input type="email" name="email" class="form-control input_user" value="" placeholder="E-mail" [(ngModel)] = "user.email" required>
           </div>
           <div class="input-group mb-1">
-            <mat-checkbox name="govEmp" style="margin:2px" [(ngModel)]="govEmp" [ngModelOptions]="{standalone: true}">Goverment Empolyee</mat-checkbox>
+            <mat-checkbox name="govEmp" style="margin:2px" [(ngModel)]="user.govEmp" [ngModelOptions]="{standalone: true}">Goverment Empolyee</mat-checkbox>
           </div>
-          <div class="input-group mb-3" *ngIf="govEmp">
-            <input type="text" name="nic" class="form-control input_user" value="" placeholder="NIC num" [required] = 'govEmp' >
+          <div class="input-group mb-3" *ngIf="user.govEmp">
+            <input type="text" name="nic" class="form-control input_user" value="" placeholder="NIC num" [required] = 'user.govEmp' [(ngModel)]="user.nic">
           </div>
         </div>
 
       </div>
       <div>
-        <button mat-button matStepperNext class="btn btn-success" type="submit">Next</button>
+        <button mat-button matStepperNext class="btn btn-success" type="submit" [disabled] = '!userForm.valid'>Next</button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="ticketFormGroup">
-    <form [formGroup]="ticketFormGroup">
+  <mat-step [stepControl]="ticketFormGroup" >
+    <form #ticketForm = "ngForm" (ngSubmit)="submitTrain()" >
       <ng-template matStepLabel>Ticket Details</ng-template>
       <div>
           <label><h6>Train Name : <span style="color: darkred">{{selectedTrain.trainName}}</span> </h6></label>
@@ -45,24 +45,25 @@
       <div style="margin : 5px;">
           <div>
               <label>Select Ticket Class:</label><br/>
-              <p-dropdown [options]="classes" [(ngModel)]="ClassPrice" [ngModelOptions]="{standalone: true}" ></p-dropdown>
+              <p-dropdown name = 'price' [options]="classes" [(ngModel)]="selectedClass"  ></p-dropdown>
             </div>
       
             <div>
                 <label>Select Train Time:</label><br/>
-                <p-dropdown [options]="times" [(ngModel)]="time" [ngModelOptions]="{standalone: true}" ></p-dropdown>
+                <p-dropdown name = 'time' [options]="times" [(ngModel)]="ticket.time" ></p-dropdown>
             </div>
       </div>
       
       <div>
         <mat-form-field>
-          <input type="number" matInput placeholder="Ticket Count" [(ngModel)] = "count" [ngModelOptions]="{standalone: true}"  required>
+          <input type="number" name = 'cont' matInput placeholder="Ticket Count" [(ngModel)] = "ticket.count" required>
         </mat-form-field>
       </div>
-      <label>Total = {{count * ClassPrice || 0}}</label>
+      <label *ngIf = 'user.govEmp'>Total = {{ticket.count * selectedClass * 90/100 || 0}}</label>
+      <label *ngIf = '!user.govEmp'>Total = {{ticket.count * selectedClass || 0}}</label>
       <div>
         <button mat-button matStepperPrevious class="btn btn-success">Back</button>
-        <button mat-button matStepperNext class="btn btn-success">Next</button>
+        <button mat-button matStepperNext class="btn btn-success" type="submit" [disabled] = "!ticketForm.valid">Next</button>
       </div>
     </form>
   </mat-step>
@@ -75,7 +76,7 @@
       
       <div style="margin-top: 10px; color: darkred">
           <div class="input-group mb-3">
-              Total = Rs: {{count * 100.00 || 0}}
+              Total = Rs: {{ticket.price}}
           </div>
       </div>
       <div>
@@ -100,19 +101,23 @@
       </div>
 
       <div *ngIf = "paymemtOption == 'card' " style="margin-top: 10px">
-          <div class="input-group mb-3">
-              <input type="text" name="phone" class="form-control input_user" value="" placeholder="Card Holder's Name" [(ngModel)] = "CardHolder">
-          </div>
+        <form #cardForm = "ngForm"  >
+          
           <div class="input-group mb-3" >
-              <input type="number" name="cardNum" class="form-control input_user" value="" placeholder="Card Number" [(ngModel)] = "cardNum">
+              <input type="number" name="cardNum" class="form-control input_user" value="" placeholder="Card Number" 
+                     [(ngModel)] = "cardNum" ccNum >
           </div>
           <div class="input-group mb-3" style="width:80px">
               <input type="number" name="cvc" class="form-control input_user" value="" placeholder="cvc" [(ngModel)] = "cvc">
           </div>
+          <div class="input-group mb-3" style="width:80px">
+            <input type="number" name="exp" class="form-control input_user" value="" placeholder="cvc" [(ngModel)] = "evp">
+        </div>
 
           <div>
               <button class="btn btn-success" >Checkout</button>
           </div>
+        </form>
       </div>
 
       <div style="margin-bottom: 70px;">

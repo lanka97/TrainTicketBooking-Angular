@@ -3,6 +3,7 @@ import { GalleriaModule } from 'primeng/galleria';
 import { User } from '../../models/user';
 import { UserService } from '../api/user.service';
 import { from } from 'rxjs';
+import { CookieService } from 'ngx-cookie';
 import { DialogService } from '../support/confirmbox';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
 
@@ -18,7 +19,7 @@ export class SignUpComponent implements OnInit {
   @Output() isSubmit = new EventEmitter<boolean>();
   singUpError: boolean;
 
-  constructor(private userService: UserService, private dialogsercice: NgxCoolDialogsService ) {
+  constructor( private cookieService: CookieService, private userService: UserService, private dialogsercice: NgxCoolDialogsService ) {
     this.singUpError = false;
    }
 
@@ -28,7 +29,14 @@ export class SignUpComponent implements OnInit {
   clickSignUp() {
     if ( this.user.govEmp ) {
       this.userService.signUp(this.user).subscribe( res => {
-        console.log(res);
+        const response: any = res;
+        if( response.message == 'Email Already exist' ){
+            this.singUpError = true;
+        } else if ( response.message == 'User Registerd' ){
+          this.dialogsercice.alert( this.user.email + ' is Registerd' );
+          this.cookieService.putObject('user', this.user );
+          this.isSubmit.emit(true);
+      }
       });
     } else {
       console.log('run');
@@ -37,9 +45,9 @@ export class SignUpComponent implements OnInit {
         const response: any = res;
         if( response.message == 'Email Already exist' ){
             this.singUpError = true;
-        }
-        if( response.message == 'User Registerd' ){
+        } else if ( response.message == 'User Registerd' ){
           this.dialogsercice.alert( this.user.email + ' is Registerd' );
+          this.cookieService.putObject('user', this.user );
           this.isSubmit.emit(true);
       }
       });

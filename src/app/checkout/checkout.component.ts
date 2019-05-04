@@ -3,6 +3,10 @@ import {FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { SelectItem } from 'primeng/api';
 import { Train, Ticket } from '../../models/train';
 import { User } from '../../models/user';
+import { CookieService  } from 'ngx-cookie';
+import { from } from 'rxjs';
+
+import { NgXCreditCardsModule } from 'ngx-credit-cards'
 
 @Component({
   selector: 'app-checkout',
@@ -29,13 +33,16 @@ export class CheckoutComponent implements OnInit {
   paymemtOption: string;
   ticket: Ticket;
   user: User;
+  selectedClass: any;
 
-  constructor( private _formBuilder: FormBuilder ) {
+  constructor( private _formBuilder: FormBuilder,  private cookieService: CookieService ) {
     this.payOptions = [
       {label: 'Payment Methord', value: null},
       {label: 'Card', value : 'card'},
       {label: 'Mobile', value: 'mobile'}
     ];
+
+    this.ticket = {};
   }
 
   ngOnInit() {
@@ -43,7 +50,7 @@ export class CheckoutComponent implements OnInit {
     this.getTimes();
     this.grtClassPricers();
 
-    this.user = null;
+    this.user = this.initalizeUser() || {};
 
     this.userFormGroup = this._formBuilder.group({
       fName : new FormControl(''|| null, [ Validators.required ]),
@@ -82,6 +89,38 @@ export class CheckoutComponent implements OnInit {
 
   submitTicket(){
 
+  }
+
+  initalizeUser(){
+    const user: User = this.cookieService.getObject('user') ;
+    // if ( user.email ) {
+    //   this.ticket.passengerName = user.fName + ' ' + user.lName;
+    //   this.ticket.passengerEmail = user.email;
+    //   this.ticket.passengerPhone = user.phone;
+    // }
+   // console.log(user);
+    return user;
+  }
+
+  submitUser(){
+     this.ticket.passengerName = this.user.fName + ' ' + this.user.lName;
+     this.ticket.passengerEmail = this.user.email;
+     this.ticket.passengerPhone = this.user.phone;
+
+      console.log(this.ticket);
+  }
+
+  submitTrain() {
+    if ( this.user.govEmp ){
+      this.ticket.price = this.selectedClass * this.ticket.count * 90 / 100;
+    } else {
+      this.ticket.price = this.selectedClass * this.ticket.count;
+    }
+
+    this.ticket.trainName = this.selectedTrain.trainName + ' ' +
+                            this.selectedTrain.departure + ' to ' +
+                            this.selectedTrain.destination;
+    console.log(this.ticket);
   }
 
 }
