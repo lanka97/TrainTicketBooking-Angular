@@ -24,6 +24,6 @@
 <div *ngIf = "display">
     {{selectedTrain.trainName}}
 <p-dialog header="Checkout" [(visible)]="display">
-    <app-checkout [selectedTrain]= "selectedTrain"></app-checkout>
+    <app-checkout [selectedTrain]= "selectedTrain" (isSubmit) = "closeCheckout($event)"></app-checkout>
 </p-dialog>
 </div>

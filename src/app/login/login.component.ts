@@ -21,7 +21,9 @@ export class LoginComponent implements OnInit {
   password = '';
   errorMsg = '';
 
-  constructor( private cookieService: CookieService, private userService: UserService, private dialogsercice: NgxCoolDialogsService ) { }
+  constructor( private cookieService: CookieService,
+               private userService: UserService,
+               private dialogsercice: NgxCoolDialogsService) { }
 
   ngOnInit() {
   }

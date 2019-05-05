@@ -20,6 +20,8 @@ import { ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { NgxCoolDialogsModule } from 'ngx-cool-dialogs';
+import { CreditCardDirectivesModule } from 'angular-cc-library';
+
 
 import {
   MatButtonModule,
@@ -34,6 +36,7 @@ import { CookieService, CookieModule } from 'ngx-cookie';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './api/user.service';
 import { NgXCreditCardsModule } from 'ngx-credit-cards';
+import { from } from 'rxjs';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,7 @@ import { NgXCreditCardsModule } from 'ngx-credit-cards';
   ],
   imports: [
     BrowserModule,
-    // NgXCreditCardsModule,
+    CreditCardDirectivesModule,
     NgxCoolDialogsModule.forRoot(),
     DropdownModule,
     RadioButtonModule,

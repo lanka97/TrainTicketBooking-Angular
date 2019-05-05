@@ -6,6 +6,8 @@ import { from } from 'rxjs';
 import { CookieService } from 'ngx-cookie';
 import { DialogService } from '../support/confirmbox';
 import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
+import { GovEmpService} from '../api/govEmp.service';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,8 +20,12 @@ export class SignUpComponent implements OnInit {
   user: User = {};
   @Output() isSubmit = new EventEmitter<boolean>();
   singUpError: boolean;
+  nicError: boolean;
 
-  constructor( private cookieService: CookieService, private userService: UserService, private dialogsercice: NgxCoolDialogsService ) {
+  constructor( private cookieService: CookieService,
+               private userService: UserService,
+               private dialogsercice: NgxCoolDialogsService,
+               private govEmpService: GovEmpService ) {
     this.singUpError = false;
    }
 
@@ -27,7 +33,10 @@ export class SignUpComponent implements OnInit {
   }
 
   clickSignUp() {
+    this.validateNic();
+    console.log(this.nicError);
     if ( this.user.govEmp ) {
+      if( !this.nicError ) {
       this.userService.signUp(this.user).subscribe( res => {
         const response: any = res;
         if( response.message == 'Email Already exist' ){
@@ -38,6 +47,7 @@ export class SignUpComponent implements OnInit {
           this.isSubmit.emit(true);
       }
       });
+    }
     } else {
       console.log('run');
       this.user.nic = '';
@@ -53,6 +63,18 @@ export class SignUpComponent implements OnInit {
       });
     }
 
+  }
+
+  async validateNic() {
+     await this.govEmpService.checknic( this.user.nic ).subscribe(  Res => {
+      const res: any = Res;
+      console.log(res);
+      if ( res.message ==  'not govEmp' ) {
+        this.nicError = true;
+      } else {
+        this.nicError = false;
+      }
+    });
   }
 
 }

@@ -21,4 +21,7 @@ import { HttpClient } from '@angular/common/http';
       return this._http.get<Ticket[]>(this.ticketUrl);
     }
 
+    setTicket( ticket ) {
+      return this._http.post(this.ticketUrl, ticket );
+    }
   }

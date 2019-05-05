@@ -28,9 +28,13 @@
               <input type="password" name="confirmPassword" [(ngModel)]="comPassword" class="form-control input_user" ngModel placeholder="confirm password " value="" required>
             </div>
             <div *ngIf = "user.password != comPassword " style="color:crimson">passwords does'nt match </div>
+            <div *ngIf = "nicError" style="color:crimson">
+                Invalid Goverment Employee NIC 
+             </div>
+             <div *ngIf = "singUpError" style="color:crimson">email Address Already Exist </div>
 
         <button type="submit" label="Cancel" class="btn btn-success btn-block" [disabled]="!f.valid && user.password != conpassword" >Sign up</button>
-        <div *ngIf = "singUpError" style="color:crimson">email Address Already Exist </div>
+        
         </form> 
       </div>
 </div>
