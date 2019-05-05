@@ -1,34 +1,40 @@
 <div id="sideBar">
     <div id="panel">
       <h1 style="font-weight:normal">Sign Up</h1>
-      <form>
+      <form (ngSubmit)="clickSignUp()" #f="ngForm">
           <div class="input-group mb-3">
-            <input type="text" name="fName" class="form-control input_user" value="" placeholder="First Name">
+            <input type="text" name="firstName" class="form-control input_user" [(ngModel)]="user.fName" placeholder="First Name" required>
           </div>
           <div class="input-group mb-3">
-              <input type="text" name="Lname" class="form-control input_user" value="" placeholder="Last Name">
+              <input type="text" name="lName" class="form-control input_user" [(ngModel)]="user.lName" placeholder="Last Name" required>
           </div>
           <div class="input-group mb-3">
-              <input type="number" name="phone" class="form-control input_user" value="" placeholder="Phone Number">
+              <input type="text" name="phone" class="form-control input_user" [(ngModel)]="user.phone" placeholder="Phone Number" required>
           </div>
           <div class="input-group mb-3">
-              <input type="email" name="email" class="form-control input_user" value="" placeholder="E-mail">
+              <input type="email" name="email" class="form-control input_user" [(ngModel)]="user.email" placeholder="E-mail" required>
           </div>
           <div class="input-group mb-1">
-                <mat-checkbox name="govEmp" style="margin:2px" [(ngModel)]="govEmp">Goverment Empolyee</mat-checkbox>
+                <mat-checkbox name="govEmp" style="margin:2px" [(ngModel)]="user.govEmp" > Goverment Empolyee</mat-checkbox>
           </div>
-          <div class="input-group mb-3" *ngIf = "govEmp">
-              <input type="text" name="nic" class="form-control input_user" value="" placeholder="NIC num" >
+          <div class="input-group mb-3" *ngIf = "user.govEmp">
+              <input type="text" name="nic" class="form-control input_user" [(ngModel)]="user.nic" placeholder="NIC num" [required] = 'user.govEmp' >
           </div>
           <div class="input-group mb-3">
-              <input type="password" name="password" class="form-control input_user" value="" placeholder="password">
+              <input type="password" name="password" class="form-control input_user" [(ngModel)]="user.password"  placeholder="password" required>
           </div>
 
           <div class="input-group mb-3">
-              <input type="password" name="confirmPassword" class="form-control input_user" value="" placeholder="confirm password ">
-          </div>
+              <input type="password" name="confirmPassword" [(ngModel)]="comPassword" class="form-control input_user" ngModel placeholder="confirm password " value="" required>
+            </div>
+            <div *ngIf = "user.password != comPassword " style="color:crimson">passwords does'nt match </div>
+            <div *ngIf = "nicError" style="color:crimson">
+                Invalid Goverment Employee NIC 
+             </div>
+             <div *ngIf = "singUpError" style="color:crimson">email Address Already Exist </div>
 
-        <button type="button" (click)="showLogin = false" label="Cancel" class="btn btn-success btn-block" >Sign up</button>
-        </form>
+        <button type="submit" label="Cancel" class="btn btn-success btn-block" [disabled]="!f.valid && user.password != conpassword" >Sign up</button>
+        
+        </form> 
       </div>
 </div>
