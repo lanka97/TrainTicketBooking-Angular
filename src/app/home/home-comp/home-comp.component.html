@@ -1,29 +1,36 @@
 <!-- <p-galleria [imagers]="images" panelWidth="500" panelHeight="313" ></p-galleria> -->
 
-<div style="padding:20px; background-color: #212529; width: 100%;" >
+<div style="padding:20px; background-color: #212529; width: 100%;">
     <hr>
     <div class="card-group" style="align-items: center">
-    
-    <p-card [style]="{width: '350px', height:'470px'}" 
+
+        <p-card [style]="{width: '350px', height:'470px'}"
             styleClass="ui-card-shadow shadow p-3 mb-5 bg-white rounded center" style="margin-right: 18px"
-            *ngFor="let item of trains" >
-        <p-header [style]="{width: '350px', height:'300x'}" >
-            <img src="train" [src]= 'item.pic'>
-        </p-header>
-        <div style="width: 100%;"><h4>{{item.trainName}}</h4></div>
-        <div style="width: 100%;"><h6>{{item.departure}} - {{item.destination}}</h6></div>
-        <div style="width: 100%;"><h6>{{item.stations}}</h6></div>
-        <div style="width: 100%;">{{item.price[0]}} - {{item.price[1]}} - {{item.price[2]}}</div>
-        <p-footer>
-            <button type="button" (click)="showLogin = false" label="Cancel" class="btn btn-success btn-block" (click) = "showDialogtoCheckout(item)">Book Now</button>
-        </p-footer>
-    </p-card>
+            *ngFor="let item of trains">
+            <p-header [style]="{width: '350px', height:'300x'}">
+                <img src="train" [src]='item.pic'>
+            </p-header>
+            <div style="width: 100%;">
+                <h4>{{item.trainName}}</h4>
+            </div>
+            <div style="width: 100%;">
+                <h6>{{item.departure}} - {{item.destination}}</h6>
+            </div>
+            <div style="width: 100%;">
+                <h6>{{item.stations}}</h6>
+            </div>
+            <div style="width: 100%;">{{item.price[0]}} - {{item.price[1]}} - {{item.price[2]}}</div>
+            <p-footer>
+                <button type="button" (click)="showLogin = false" label="Cancel" class="btn btn-success btn-block"
+                    (click)="showDialogtoCheckout(item)">Book Now</button>
+            </p-footer>
+        </p-card>
 
     </div>
 </div>
-<div *ngIf = "display">
+<div *ngIf="display">
     {{selectedTrain.trainName}}
-<p-dialog header="Checkout" [(visible)]="display">
-    <app-checkout [selectedTrain]= "selectedTrain" (isSubmit) = "closeCheckout($event)"></app-checkout>
-</p-dialog>
+    <p-dialog header="Checkout" [(visible)]="display" modal="true" widgetVar="50px" draggable="false" resizable="false">
+        <app-checkout [selectedTrain]="selectedTrain" (isSubmit)="closeCheckout($event)"></app-checkout>
+    </p-dialog>
 </div>

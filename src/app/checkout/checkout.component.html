@@ -1,136 +1,148 @@
 <mat-vertical-stepper [linear]="false" #stepper>
-  <mat-step [stepControl]="userFormGroup" >
-    <form (ngSubmit)="submitUser()" #userForm = "ngForm">
+  <mat-step [stepControl]="userFormGroup">
+    <form (ngSubmit)="submitUser()" #userForm="ngForm">
       <ng-template matStepLabel>Fill out your Details</ng-template>
       <div>
 
         <div id="panel">
           <label>If govverment employee sigin for special discount </label>
           <div class="input-group mb-3">
-            <input type="text" name="fName" class="form-control input_user" value=""  placeholder="first Name " [(ngModel)] = "user.fName" required>
+            <input type="text" name="fName" class="form-control input_user" value="" placeholder="first Name "
+              [(ngModel)]="user.fName" required>
           </div>
           <div class="input-group mb-3">
-            <input type="text" name="lName" class="form-control input_user" value="" placeholder="Last Name" [(ngModel)] = "user.lName" required>
+            <input type="text" name="lName" class="form-control input_user" value="" placeholder="Last Name"
+              [(ngModel)]="user.lName" required>
           </div>
           <div class="input-group mb-3">
-            <input type="text" name="phone" class="form-control input_user" value="" placeholder="Phone Number" [(ngModel)] = "user.phone" required>
+            <input type="text" name="phone" class="form-control input_user" value="" placeholder="Phone Number"
+              [(ngModel)]="user.phone" required>
           </div>
           <div class="input-group mb-3">
-            <input type="email" name="email" class="form-control input_user" value="" placeholder="E-mail" [(ngModel)] = "user.email" required>
+            <input type="email" name="email" class="form-control input_user" value="" placeholder="E-mail"
+              [(ngModel)]="user.email" required>
           </div>
         </div>
-        
+
       </div>
       <div>
-        <button mat-button matStepperNext  class="btn btn-success" type="submit" [disabled] = '!userForm.valid'>Next</button>
+        <button mat-button matStepperNext class="btn btn-success" type="submit"
+          [disabled]='!userForm.valid'>Next</button>
       </div>
     </form>
   </mat-step>
-<div *ngIf = 'userForm.valid'>
-  <mat-step [stepControl]="ticketFormGroup">
-    <form #ticketForm = "ngForm" (ngSubmit)="submitTrain()" >
-      <ng-template matStepLabel >Ticket Details</ng-template>
-      <div>
-          <label><h6>Train Name : <span style="color: darkred">{{selectedTrain.trainName}}</span> </h6></label>
-      </div>
+  <div *ngIf='userForm.valid'>
+    <mat-step [stepControl]="ticketFormGroup">
+      <form #ticketForm="ngForm" (ngSubmit)="submitTrain()">
+        <ng-template matStepLabel>Ticket Details</ng-template>
+        <div>
+          <label>
+            <h6>Train Name : <span style="color: darkred">{{selectedTrain.trainName}}</span> </h6>
+          </label>
+        </div>
 
-      <label style="font-size: 10px;">{{selectedTrain.departure}} to {{selectedTrain.destination}}</label>
+        <label style="font-size: 10px;">{{selectedTrain.departure}} to {{selectedTrain.destination}}</label>
 
-      <div style="margin : 5px;">
+        <div style="margin : 5px;">
           <div>
-              <label>Select Ticket Class:</label><br/>
-              <p-dropdown name = 'price' [options]="classes" [(ngModel)]="selectedClass"  ></p-dropdown>
-            </div>
-      
-            <div>
-                <label>Select Train Time:</label><br/>
-                <p-dropdown name = 'time' [options]="times" [(ngModel)]="ticket.time" ></p-dropdown>
-            </div>
-            
-      </div>
-      <div>
-        <mat-form-field>
-          <input type="date" name = 'date' matInput placeholder="Ticket Date" [(ngModel)] = "ticket.date" required>
-        </mat-form-field>
-      </div>
-      <div>
-        <mat-form-field>
-          <input type="number" name = 'cont' matInput placeholder="Ticket Count" [(ngModel)] = "ticket.count" required>
-        </mat-form-field>
-      </div>
-      <label *ngIf = 'user.govEmp'>Total = {{ticket.count * selectedClass * 90/100 || 0}}</label>
-      <label *ngIf = '!user.govEmp'>Total = {{ticket.count * selectedClass || 0}}</label>
-      <div>
-        <button mat-button matStepperPrevious class="btn btn-success">Back</button>
-        <button mat-button matStepperNext class="btn btn-success" type="submit" [disabled] = "!ticketForm.valid">Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Checkout</ng-template>
-    <!-- <mat-radio-group aria-label="Select an option">
+            <label>Select Ticket Class:</label><br />
+            <p-dropdown name='price' [options]="classes" [(ngModel)]="selectedClass"></p-dropdown>
+          </div>
+
+          <div>
+            <label>Select Train Time:</label><br />
+            <p-dropdown name='time' [options]="times" [(ngModel)]="ticket.time"></p-dropdown>
+          </div>
+
+        </div>
+        <div>
+          <mat-form-field>
+            <input type="date" name='date' matInput placeholder="Ticket Date" [(ngModel)]="ticket.date" required>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input type="number" name='cont' matInput placeholder="Ticket Count" [(ngModel)]="ticket.count" required>
+          </mat-form-field>
+        </div>
+        <label *ngIf='user.govEmp'>Total = {{ticket.count * selectedClass * 90/100 || 0}}</label>
+        <label *ngIf='!user.govEmp'>Total = {{ticket.count * selectedClass || 0}}</label>
+        <div>
+          <button mat-button matStepperPrevious class="btn btn-success">Back</button>
+          <button mat-button matStepperNext class="btn btn-success" type="submit"
+            [disabled]="!ticketForm.valid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Checkout</ng-template>
+      <!-- <mat-radio-group aria-label="Select an option">
         <mat-radio-button value="1" name = "mobile" [(ngModel)]="mobile" [ngModelOptions]="{standalone: true}">Option 1</mat-radio-button>
         <mat-radio-button value="2" name = "card" [(ngModel)]="card" [ngModelOptions]="{standalone: true}">Option 2</mat-radio-button>
       </mat-radio-group> -->
-      
+
       <div style="margin-top: 10px; color: darkred">
-          <div class="input-group mb-3">
-              Total = Rs: {{ticket.price}}
-          </div>
+        <div class="input-group mb-3">
+          Total = Rs: {{ticket.price}}
+        </div>
       </div>
       <div>
-      <label>Payment Method:</label>
+        <label>Payment Method:</label>
       </div>
-      <p-dropdown [options]="payOptions" [(ngModel)]="paymemtOption" ></p-dropdown>
+      <p-dropdown [options]="payOptions" [(ngModel)]="paymemtOption"></p-dropdown>
 
-      <div *ngIf = "paymemtOption == 'mobile' " style="margin-top: 10px">
-        <form #phoneForm = "ngForm"  (ngSubmit)="onPhoneSubmit(cardForm)">
+      <div *ngIf="paymemtOption == 'mobile' " style="margin-top: 10px">
+        <form #phoneForm="ngForm" (ngSubmit)="onPhoneSubmit(cardForm)">
           <div class="input-group mb-3">
-              <input type="tel" name="phone" class="form-control input_user" value="" placeholder="Phone Number" [(ngModel)] = "phone">
+            <input type="tel" name="phone" class="form-control input_user" value="" placeholder="Phone Number"
+              [(ngModel)]="phone" required>
           </div>
 
           <div class="input-group mb-3" style="width:80px">
-              <input type="number" name="phone" class="form-control input_user" value="" placeholder="pin" [(ngModel)] = "pin" >
+            <input type="number" name="phone" class="form-control input_user" value="" placeholder="pin"
+              [(ngModel)]="pin" required>
           </div>
 
-          <div *ngIf = "phoneError || pin > 9999" style="color:crimson">
+          <div *ngIf="phoneError || pin > 9999" style="color:crimson">
             Invalid Phone Number or Pin
-         </div>
+          </div>
 
           <div>
-              <button class="btn btn-success" type="submit" [disabled] = '!phoneForm.valid' >Checkout</button>
+            <button class="btn btn-success" type="submit" [disabled]='!phoneForm.valid'>Checkout</button>
           </div>
         </form>
       </div>
 
-      <div *ngIf = "paymemtOption == 'card' " style="margin-top: 10px" >
-        <form #cardForm = "ngForm"  (ngSubmit)="onCardSubmit(cardForm)" novalidate [formGroup]="form" >
-          
-          <div class="input-group mb-3" >
-              <input type="tel" formControlName="creditCard" class="form-control input_user" value="" placeholder="Card Number" 
-                     [(ngModel)] = "cardNum" ccNumber>
+      <div *ngIf="paymemtOption == 'card' " style="margin-top: 10px">
+        <form #cardForm="ngForm" (ngSubmit)="onCardSubmit(cardForm)" novalidate [formGroup]="form">
+
+          <div class="input-group mb-3">
+            <input type="tel" formControlName="creditCard" class="form-control input_user" value=""
+              placeholder="Card Number" [(ngModel)]="cardNum" ccNumber>
           </div>
           <div class="input-group mb-3" style="width:80px">
-              <input type="tel" formControlName="cvc" class="form-control input_user" value="" placeholder="cvc" [(ngModel)] = "cvc" ccCVC>
+            <input type="tel" formControlName="cvc" class="form-control input_user" value="" placeholder="cvc"
+              [(ngModel)]="cvc" ccCVC>
           </div>
           <div class="input-group mb-3" style="width:80px">
-            <input type="tel" formControlName="expirationDate" class="form-control input_user" value="" placeholder="exp" [(ngModel)] = "exp" ccExp>
-        </div>
-        <div *ngIf = "cardError" style="color:crimson">
+            <input type="tel" formControlName="expirationDate" class="form-control input_user" value=""
+              placeholder="exp" [(ngModel)]="exp" ccExp>
+          </div>
+          <div *ngIf="cardError" style="color:crimson">
             Card Not Found
-         </div>
+          </div>
 
           <div>
-              <button class="btn btn-success" type="submit" [disabled] = '!form.valid'>Checkout</button>
+            <button class="btn btn-success" type="submit" [disabled]='!form.valid'>Checkout</button>
           </div>
         </form>
       </div>
 
       <div style="margin-bottom: 70px;">
       </div>
-      
-      <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
-  </mat-step>
 
-</div>
+      <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+    </mat-step>
+
+  </div>
 </mat-vertical-stepper>

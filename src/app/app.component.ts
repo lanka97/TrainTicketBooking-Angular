@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { CookieService  } from 'ngx-cookie';
+import { CookieService } from 'ngx-cookie';
 import { BoundPlayerFactory } from '@angular/core/src/render3/styling/player_factory';
 import { UserService } from './api/user.service';
 import { from } from 'rxjs';
@@ -10,7 +10,7 @@ import { TrainService } from './api/trainServicers'
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [ CookieService ]
+  providers: [CookieService]
 })
 
 @Injectable()
@@ -22,37 +22,29 @@ export class AppComponent implements OnInit {
   images: any[];
   user = this.cookieService.getObject("user");
 
-  constructor( private cookieService: CookieService, private userService: UserService, private trainService: TrainService ) {
+  constructor(private cookieService: CookieService, private userService: UserService, private trainService: TrainService) {
     this.checkLogin();
     this.showLogin = false;
     this.images = [];
-    this.images.push({source: '../../assets/img/1.jpg', alt: 'Udarata Manike', title: 'Up-country Rail Way'});
-    this.images.push({source: '../../assets/img/2 (1).jfif', alt: 'Ruhunu Kumari', title: 'Sea Road'});
-    this.images.push({source: '../../assets/img/1 (4).jpg', alt: 'Podi Manike', title: 'Nine Archs'});
+    this.images.push({ source: '../../assets/img/1.jpg', alt: 'Udarata Manike', title: 'Up-country Rail Way' });
+    this.images.push({ source: '../../assets/img/2 (1).jfif', alt: 'Ruhunu Kumari', title: 'Sea Road' });
+    this.images.push({ source: '../../assets/img/1 (4).jpg', alt: 'Podi Manike', title: 'Nine Archs' });
   }
 
   ngOnInit() {
     this.checkLogin();
-    // this.userService.getUser().subscribe(res =>{
-    //   console.log(res);
-    // });
-
-    this.trainService.getTickets().subscribe( res => {
-      console.log(res);
-    })
-
   }
 
-  closeLogin( event: any ) {
+  closeLogin(event: any) {
     this.showLogin = false;
     this.checkLogin();
   }
 
-  closeSignUp( event: any ) {
+  closeSignUp(event: any) {
     this.showSignUp = false;
   }
 
-  closeLoginOpenSignUp( event: any ) {
+  closeLoginOpenSignUp(event: any) {
     this.showLogin = false;
     this.showSignUp = true;
   }
@@ -60,7 +52,7 @@ export class AppComponent implements OnInit {
   checkLogin(): boolean {
     this.user = this.cookieService.getObject('user');
 
-    if(this.user) {
+    if (this.user) {
       return true;
     } else {
       return false;
@@ -68,7 +60,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  logOut(){
+  logOut() {
     this.cookieService.remove("user");
   }
 

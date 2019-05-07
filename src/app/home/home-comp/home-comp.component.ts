@@ -12,41 +12,41 @@ import { Train } from '../../../models/train';
 })
 export class HomeCompComponent implements OnInit {
 
-    trains: Train[];
-    isLinear = false;
-    firstFormGroup: FormGroup;
-    secondFormGroup: FormGroup;
-    display: boolean;
-    selectedTrain: Train;
+  trains: Train[];
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  display: boolean;
+  selectedTrain: Train;
 
-    constructor( private _formBuilder: FormBuilder, private trainService: TrainService ) { 
+  constructor(private _formBuilder: FormBuilder, private trainService: TrainService) {
 
-      this.trainService.getTrains().subscribe( res => {
-        this.trains = res;
-        console.log(this.trains);
-      });
+    this.trainService.getTrains().subscribe(res => {
+      this.trains = res;
+      console.log(this.trains);
+    });
 
-    }
+  }
 
-    ngOnInit() {
-      this.firstFormGroup = this._formBuilder.group({
-        firstCtrl: ['', Validators.required]
-      });
-      this.secondFormGroup = this._formBuilder.group({
-        secondCtrl: ['', Validators.required]
-      });
-    }
+  ngOnInit() {
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+  }
 
-    async showDialogtoCheckout(item: any) {
-      this.selectedTrain = item;
-      if(this.selectedTrain){
+  async showDialogtoCheckout(item: any) {
+    this.selectedTrain = item;
+    if (this.selectedTrain) {
       this.display = true;
     }
-    }
-
-    closeCheckout($event){
-      this.display = false;
-    }
   }
+
+  closeCheckout($event) {
+    this.display = false;
+  }
+}
 
 

@@ -1,35 +1,37 @@
 <div id="sideBar">
-    <div id="panel">
-      <h1 style="font-weight:normal">Login</h1>
-      <form (ngSubmit)="clickLogin()" #f="ngForm">
-          <div class="input-group mb-3">
-            <div class="input-group-append">
-              <span class="input-group-text"><i class="pi pi-user"></i></span>
-            </div>
-            <input type="text" name="email" class="form-control input_user" [(ngModel)] = "email"   placeholder="email">
-          </div>
-          <div class="input-group mb-2">
-            <div class="input-group-append">
-              <span class="input-group-text"><i class="pi pi-key"></i></span>
-            </div>
-            <input type="password" name="password" class="form-control input_pass" [(ngModel)] = "password" placeholder="password">
-          </div>
-          <div class="form-group">
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="customControlInline">
-              <label class="custom-control-label" for="customControlInline">Remember me</label>
-            </div>
-          <div>
+  <div id="panel">
+    <h1 style="font-weight:normal">Login</h1>
+    <form (ngSubmit)="clickLogin()" #f="ngForm">
+      <div class="input-group mb-3">
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="pi pi-user"></i></span>
+        </div>
+        <input type="text" name="email" class="form-control input_user" [(ngModel)]="email" placeholder="email">
+      </div>
+      <div class="input-group mb-2">
+        <div class="input-group-append">
+          <span class="input-group-text"><i class="pi pi-key"></i></span>
+        </div>
+        <input type="password" name="password" class="form-control input_pass" [(ngModel)]="password"
+          placeholder="password">
+      </div>
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="customControlInline">
+          <label class="custom-control-label" for="customControlInline">Remember me</label>
+        </div>
+        <div>
           <div class="buttonLogin">
-            <button  type="submit"  label="Save" class="btn btn-info">Lod in</button>
-            <button  type="reset" (click)="clickClose()" label="Cancel" class="btn btn-danger" >Cancel</button>
-            <div *ngIf = "errorMsg" style="color:crimson">{{errorMsg}} </div>
+            <button type="submit" label="Save" class="btn btn-info">Lod in</button>
+            <button type="reset" (click)="clickClose()" label="Cancel" class="btn btn-danger">Cancel</button>
+            <div *ngIf="errorMsg" style="color:crimson">{{errorMsg}} </div>
           </div>
-         
-        i dont have account
-        <button type="button" (click)="clickSignUp()" label="Cancel" class="btn btn-success btn-block" >Sign up</button>
+
+          i dont have account
+          <button type="button" (click)="clickSignUp()" label="Cancel" class="btn btn-success btn-block">Sign
+            up</button>
+        </div>
       </div>
-    </div>
-        </form>
-      </div>
+    </form>
+  </div>
 </div>

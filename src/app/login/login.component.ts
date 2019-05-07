@@ -8,7 +8,7 @@ import { NgxCoolDialogsService } from 'ngx-cool-dialogs';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  providers: [ CookieService ]
+  providers: [CookieService]
 })
 
 @Injectable()
@@ -21,9 +21,9 @@ export class LoginComponent implements OnInit {
   password = '';
   errorMsg = '';
 
-  constructor( private cookieService: CookieService,
-               private userService: UserService,
-               private dialogsercice: NgxCoolDialogsService) { }
+  constructor(private cookieService: CookieService,
+    private userService: UserService,
+    private dialogsercice: NgxCoolDialogsService) { }
 
   ngOnInit() {
   }
@@ -38,12 +38,12 @@ export class LoginComponent implements OnInit {
       password: this.password
     };
 
-    this.userService.login(loginObj).subscribe( response => {
+    this.userService.login(loginObj).subscribe(response => {
       console.log(response);
-      if ( response.success ) {
-        this.cookieService.putObject('user', response.user );
+      if (response.success) {
+        this.cookieService.putObject('user', response.user);
         this.isSubmit.emit(true);
-        this.dialogsercice.alert( 'loged in ' + response.user.email );
+        this.dialogsercice.alert('loged in ' + response.user.email);
       } else {
         this.errorMsg = response.error;
         console.log(this.errorMsg);
